@@ -1,22 +1,42 @@
 # BUS 392 Final Project
 # Adam Watson and Alyx Stewart
 
-
 import csv
 import sys
 import datetime
 
 def main():
-    print("                         UPC Reader                               ")
+    print("                         UPC Reader Menu                          ")
     print("------------------------------------------------------------------")
-   
-
-         
-            
-
-
+    print( "1. Record Sale")
+    print( "2. Retrieve Online Orders")
+    print( "3. Update Catalog")
+    print( "4. Terminate Program")
     
-    
+    # Prompt user to make a menu selection
+    another = input ("Would you like to make a selection? (Y or y for yes) :" )
+    while another == "Y" or "y":
+        selection = input("Please make a selection (1,2,3,or 4): " )
+        if selection == "1":
+            # Run the Record Sale functions
+            #Recordsale()
+            create_order_number(UPC)
+            calculate_total (price)
+            want_receipt ()
+        elif selection == "2":
+         # Run the Retrieve Online Order functions
+        elif selection == "3":
+        # Run the Update Catalog functions
+        elif selection == "4":
+          #Run the Terminate Program functions
+            terminate_program()
+        elif selection != "1" or selection != "2" or selection != "3" or selection != "4":
+            print ("ERROR: Please enter valid selection number")
+            selection = input("Please make a selection (1,2,3,or 4): " )
+        
+        
+#RECORD SALE FUNCTIONS: 
+
 # Function that takes scanned UPC as an argument
 def create_order_number (order_number):
     
@@ -44,9 +64,8 @@ def calculate_total (price):
     # Return total
     return grand_total
 
-#Function to prompt user to see if they want a printed receipt
-
-def want_receipt (receipt):
+#Function Prompt user to see if they want a printed receipt
+def want_receipt ():
     yes_or_no = input ("Would you like to print a receipt? (Y or N) : ")
     if "Y" or "y":
         order_number = receipt_file_name
@@ -58,3 +77,12 @@ def want_receipt (receipt):
         
     else:
         print ("No Receipt")
+        
+# ONLINE ORDER FUNCTIONS
+
+# UPDATE CATALOG FUNCTIONS
+        
+# TERMINATE PROGRAM FUNCTION
+def terminate_program():
+    exit()
+    
