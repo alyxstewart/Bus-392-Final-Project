@@ -1,8 +1,22 @@
+# BUS 392 Final Project
+# Adam Watson and Alyx Stewart
 
 
-# Import date & time to add timestamp to order number
+import csv
+import sys
 import datetime
 
+def main():
+    print("                         UPC Reader                               ")
+    print("------------------------------------------------------------------")
+   
+
+         
+            
+
+
+    
+    
 # Function that takes scanned UPC as an argument
 def create_order_number (order_number):
     
