@@ -4,6 +4,8 @@
 import csv
 import sys
 import datetime
+import random
+
 
 def main():
     print("                         UPC Reader Menu                          ")
@@ -14,7 +16,7 @@ def main():
     print( "4. Terminate Program")
     
     # Prompt user to make a menu selection
-    another = input ("Would you like to make a selection? (Y or y for yes) :" )
+    another = input ("Would you like to make a selection? (Y or N) :" )
     while another == "Y" or "y":
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
@@ -36,6 +38,26 @@ def main():
         
         
 #RECORD SALE FUNCTIONS: 
+
+# Function to convert CVS file to a list
+def CVS_to_List ():
+    # Reads in the csv file to a list
+    infile = open('UPC.csv', 'r',encoding='utf-8-sig')
+    items = []
+    for line in infile:
+        items.append(line.rstrip('\n').split(','))
+
+    for item in items:
+        item.append(get_price())
+
+    for item in items:
+        print(item)
+
+# Function to generate random prices for items
+def get_price():
+    ran_price = random.uniform(.99,4.99)
+    return ran_price
+
 
 # Function that takes scanned UPC as an argument
 def create_order_number (order_number):
@@ -65,11 +87,10 @@ def calculate_total (price):
     return grand_total
 
 #Function Prompt user to see if they want a printed receipt
-def want_receipt ():
+def want_receipt (unique_order_number, data):
     yes_or_no = input ("Would you like to print a receipt? (Y or N) : ")
     if "Y" or "y":
-        order_number = receipt_file_name
-        #Order_number is whatever the UPC is (might have to change) 
+        unique_order_number = receipt_file_name 
         receipt = open (receipt_file_name.txt, "w")
         receipt.write(data)
         # Change data to whatever we name the UPC file return info
