@@ -36,11 +36,9 @@ def main():
             print ("ERROR: Please enter valid selection number")
             selection = input("Please make a selection (1,2,3,or 4): " )
         
-        
-#RECORD SALE FUNCTIONS: 
-
+#ENTIRE PROGRAM FUNCTIONS:   
 # Function to convert CVS file to a list
-def CVS_to_List ():
+def cvs_to_list ():
     # Reads in the csv file to a list
     infile = open('UPC.csv', 'r',encoding='utf-8-sig')
     items = []
@@ -53,12 +51,13 @@ def CVS_to_List ():
     for item in items:
         print(item)
 
-# Function to generate random prices for items
+# Function to generate and return random prices for items
 def get_price():
     ran_price = random.uniform(.99,4.99)
     return ran_price
 
 
+#RECORD SALE FUNCTIONS: 
 # Function that takes scanned UPC as an argument
 def create_order_number (order_number):
     
@@ -99,11 +98,11 @@ def want_receipt (unique_order_number, data):
     else:
         print ("No Receipt")
         
-# ONLINE ORDER FUNCTIONS
+# ONLINE ORDER FUNCTIONS:
 
-# UPDATE CATALOG FUNCTIONS
+# UPDATE CATALOG FUNCTIONS:
         
-# TERMINATE PROGRAM FUNCTION
+# TERMINATE PROGRAM FUNCTION:
 def terminate_program():
     exit()
     
