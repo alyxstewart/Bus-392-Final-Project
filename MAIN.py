@@ -48,8 +48,12 @@ def CSV_to_list():
 
     for item in items:
         item.append(ran_price=get_price())
-
+    
+    return items
         
+
+    
+    
 # Function to create our sqlite database and add tables
 # for our catalog and sales records.
 def create_database():
@@ -222,7 +226,7 @@ def save_sale(unique_order_number,cart):
 # ONLINE ORDER FUNCTIONS:
 
 def retrieve_online_orders (online_order):
-    unpickle_online_orders(online_order)
+    unpickled_order = unpickle_online_orders(online_order)
     create_online_order(online_order)
         
 def unpickle_online_orders(filename):
@@ -239,18 +243,29 @@ def create_online_order(new_online_order):
 # Function to gather information for new item entry.
 def new_item():
     # Prompt user to enter in UPC, description, and price.
+    upc = input("Enter UPC here: ")
+    description = input("Enter description here: ")
+    price = float(input("Enter price here: "))
+    
+    # Return those values
+    return upc,description,price
     
     
-    
-def update_catalog():
-    
-    # Establish a connection.
-    conn = sqlite3.connect('conveniencestore.db')
+def update_catalog(upc,description,price):
+    # Establish a connection to the database
+    conn = sqlite3.connect("conveniencestore.db")
     
     # Create a cursor object.
     c = conn.cursor()
     
+    # Insert a new row of data.
+    c.execute("INSERT INTO catalog VALUES(upc,description,price)")
     
+    # Commit the changes.
+    conn.commit()
+    
+    # Close the connection when done.
+    conn.close()
     
 
 # TERMINATE PROGRAM FUNCTION:
