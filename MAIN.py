@@ -208,6 +208,7 @@ def calculate_tax(subtotal):
 
 
 # Function to calculate grand total.
+def calculate_grand_total(subtotal,sales_tax):
     # Calculate grand total
     grand_total = subtotal + sales_tax
 
