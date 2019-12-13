@@ -20,18 +20,26 @@ def main():
     while another == "Y" or "y":
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
-            # Run the Record Sale functions
-            #Recordsale()
+            #Run the record sale function
+            record_sale()
+          
         elif selection == "2":
          # Run the Retrieve Online Order functions
+            retrieve_online_orders (online_order)
+        
+        
         elif selection == "3":
-        # Run the Update Catalog functions
+            # Run the Update Catalog functions
+            new_item()
+            update_catalog()
+        
         elif selection == "4":
           #Run the Terminate Program functions
             terminate_program()
+            
         elif selection != "1" or selection != "2" or selection != "3" or selection != "4":
             print ("ERROR: Please enter valid selection number")
-            selection = input("Please make a selection (1,2,3,or 4): " )
+            another
 
             
 #ENTIRE PROGRAM FUNCTIONS:   
