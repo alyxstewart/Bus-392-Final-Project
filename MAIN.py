@@ -35,10 +35,11 @@ def main():
         elif selection != "1" or selection != "2" or selection != "3" or selection != "4":
             print ("ERROR: Please enter valid selection number")
             selection = input("Please make a selection (1,2,3,or 4): " )
-        
+
+            
 #ENTIRE PROGRAM FUNCTIONS:   
-# Function to convert CVS file to a list
-def cvs_to_list ():
+# Function to convert CSV file to a list
+def CSV_to_list():
     # Reads in the csv file to a list
     infile = open('UPC.csv', 'r',encoding='utf-8-sig')
     items = []
@@ -58,8 +59,8 @@ def get_price():
 
 
 #RECORD SALE FUNCTIONS: 
-# Function that takes scanned UPC as an argument
-def create_order_number (order_number):
+# Function that runs
+def create_order_number():
     
     # Create time stamp    
     today = datetime.date.today()
@@ -69,18 +70,33 @@ def create_order_number (order_number):
     
     # Varible to hold order number (combion count and date)
     unique_order_number = date + "-" + order_number
+    
+    # Return unique order number.
     return unique_order_number
 
-# Function to calculate subtotal, tax, and grand total
-def calculate_total (price):
+# Run product description lookup.
+
+# Run product price lookup.
+
+# Function to calculate subtotal.
+def calculate_subtotal(price):
     # Add up all the item prices
-    total = price += price
+    subtotal += price
+    
+    # Return subtotal
+    return subtotal
 
+# Function to calculate tax.
+def calculate_tax(subtotal):
     # Calculate sales tax
-    sales_tax = total * .08
+    sales_tax = subtotal * .08
 
+    # Return sales tax
+    return sales_tax
+
+# Function to calculate grand total.
     # Calculate grand total
-    grand_total = total + sales_tax
+    grand_total = subtotal + sales_tax
 
     # Return total
     return grand_total
