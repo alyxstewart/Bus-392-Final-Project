@@ -20,7 +20,8 @@ def main():
     
     # Prompt user to make a menu selection
     another = input ("Would you like to make a selection? (Y or N) :" )
-    while another == "Y" or "y":
+    another.upper()
+    while another == "Y":
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
             # Run the Record Sale functions
@@ -42,7 +43,10 @@ def main():
             print ("ERROR: Please enter valid selection number")
             selection = input("Please make a selection (1,2,3,or 4): " )
 
-            
+        another = input("Would you like to make another selection? (Y or N): ")
+        another.upper()
+      
+    
 #ENTIRE PROGRAM FUNCTIONS:   
 # Function to convert CSV file to a list
 def CSV_to_list():
@@ -112,10 +116,6 @@ def create_catalog(items):
     
     # Close the connection when finished iterating.
     conn.close()
-
-
-#RECORD SALE FUNCTIONS: 
-def record_sale():
 
 
 # Function that creates a unique order number.
@@ -295,6 +295,8 @@ def save_sale(unique_order_number,cart,subtotal,sales_tax,grand_total):
     
     # Close the database when finished.
     conn.close()
+    
+    
 def record_sale():
     unique_order_number = create_order_number(order_number)
     cart = add_items()
