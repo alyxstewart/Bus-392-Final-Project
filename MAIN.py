@@ -63,12 +63,12 @@ def create_database():
     
     # Create a table for our catalog.
     c.execute('''CREATE TABLE catalog
-                (UPC text, Description text, Price real)''')
+                (upc text, description text, price real)''')
     
     # Create a table to record each sale into the database.
     c.execute('''CREATE TABLE sales
-                (Order_Number text, UPC text, Description text, Price real, \
-                Subtotal real, Sales_Tax real, Total real)''')
+                (order_num text, upc text, description text, price real, \
+                subtotal real, sales_tax real, total real)''')
     
     # Commit the changes.
     conn.commit()
@@ -158,7 +158,13 @@ def run_description_lookup(item):
 
 # Run product price lookup.
 def run_price_lookup(item):
-
+    # Establish a connection to the database.
+    conn = sqlite3.connect("conveniencestore.db")
+    
+    # Create a cursor object.
+    c = conn.cursor()
+    
+    # Lookup the item UPC in sqlite and return the price.
 
 # Function to calculate subtotal.
 def calculate_subtotal(cart):
@@ -242,7 +248,7 @@ def write_sale(decision,unique_order_number,data_string,cart):
 # Function to push sale information to sqlite database.
 def save_sale(unique_order_number,cart):
     # Establish a connection to the sqlite database.
-    conn.connect("conveniencestore.db")
+    conn=sqlite3.connect("conveniencestore.db")
     
     # Create a cursor object.
     c = conn.cursor()
@@ -256,7 +262,8 @@ def save_sale(unique_order_number,cart):
     # For each item in the cart add a row to the sqlite database
     for item in cart:
         # Run product description lookup and price lookup.
-        
+        description = run_description_lookup()
+        price = run_price_lookup()
    
 
 # ONLINE ORDER FUNCTIONS:
