@@ -5,7 +5,7 @@ import csv
 import sys
 import datetime
 import random
-
+import sqlite3
 
 def main():
     print("                         UPC Reader Menu                          ")
@@ -52,6 +52,7 @@ def CSV_to_list():
     for item in items:
         print(item)
 
+        
 # Function to generate and return random prices for items
 def get_price():
     ran_price = random.uniform(.99,4.99)
@@ -76,6 +77,7 @@ def create_order_number():
     
     # Return unique order number.
     return unique_order_number
+
 
 # Add items function will prompt clerk to enter items until they
 # are finished adding entire cart.
@@ -102,11 +104,11 @@ def add_items():
     
 
 # Run product description lookup.
-
+def run_description_lookup(item):
 
 
 # Run product price lookup.
-
+def run_price_lookup(item):
 
 
 # Function to calculate subtotal.
@@ -142,9 +144,19 @@ def calculate_tax(subtotal):
     return grand_total
 
 
-# Date line function to create lines of data for receipt/sqlite.
-def data_line(item,subtotal, sales_tax, grand_total):
+# Data line function to create lines of data for receipt/sqlite.
+def data_line(item):
+    # Lookup the price
+    price = run_price_lookup(item)
     
+    # Lookup the description
+    description = run_description_lookup(item)
+    
+    # Add item, price, and description to one line as a string.
+    data_string = item + "\t" + description + "...................." + price
+    
+    # Return data string.
+    return data_string
     
     
 #Function to prompt user to see if they want a printed receipt
@@ -156,18 +168,33 @@ def want_receipt ():
     # Return decision
     return decision
 
+
 # Function to write sale to file.
-def write_sale(decision,unique_order_number,
+def write_sale(decision,unique_order_number,data_string,cart):
     if decision == "Y":
-        receipt unique_order_number
-        receipt = open (receipt_file_name.txt, "w")
-        receipt.write(data)
+        # Open a new text file 
+        receipt = open(unique_order_number.txt, "w")
+        
+        # For each item in the cart, add each item's data line to the file.
+        for items in cart:
+            # Run data line for the item to create a string.
+            data_string = data_line(item)
+            
+            # Write the data string to the receipt text file.
+            receipt.writeline(data_string\n)
+        
         # Change data to whatever we name the UPC file return info
         receipt.close()
         
     else:
         print ("No Receipt")
         
+
+# Function to push sale information to sqlite database.
+def save_sale(unique_order_number,data_string,cart):
+    # For each item in the cart
+    
+    
 # ONLINE ORDER FUNCTIONS:
 
 # UPDATE CATALOG FUNCTIONS:
