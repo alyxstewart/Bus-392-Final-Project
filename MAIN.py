@@ -15,13 +15,19 @@ def main():
     print( "3. Update Catalog")
     print( "4. Terminate Program")
     
+    # Set order_number equal to 1.
+    order_number = 1
+    
     # Prompt user to make a menu selection
     another = input ("Would you like to make a selection? (Y or N) :" )
     while another == "Y" or "y":
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
             # Run the Record Sale functions
-            recordsale() 
+            #Recordsale()
+            create_order_number(upc)
+            calculate_total (price)
+            want_receipt ()
         elif selection == "2":
          # Run the Retrieve Online Order functions
         elif selection == "3":
@@ -106,11 +112,11 @@ def create_catalog(items):
 
 
 #RECORD SALE FUNCTIONS: 
+def record_sale():
 
-  
 
-# Function that runs
-def create_order_number():
+# Function that creates a unique order number.
+def create_order_number(order_number):
     
     # Create time stamp    
     today = datetime.date.today()
@@ -118,8 +124,11 @@ def create_order_number():
     # Formate date
     date = today.strftime("%m%d%Y")
     
-    # Varible to hold order number (combion count and date)
+    # Varible to hold order number (combine count and date)
     unique_order_number = date + "-" + order_number
+    
+    # Add to order_number
+    order_number += 1
     
     # Return unique order number.
     return unique_order_number
@@ -158,7 +167,16 @@ def run_product_lookup(item):
     c = conn.cursor()
     
     # Lookup the item UPC in sqlite and return the price.
-    t = (
+    t = (item,)
+    c.execute("SELECT * FROM catalog WHERE description=?",t)
+    product_info = [c.fetchone()]
+    
+    # Name the price and the description and return them.
+    description = product_info[1]
+    price = product_info[2]
+    
+    # Return those values
+    return description, price
     
     
 # Function to calculate subtotal.
@@ -187,8 +205,7 @@ def calculate_tax(subtotal):
 
 
 # Function to calculate grand total.
-    # Calculate grand totalto
-def caculate_grandtotal(subtotal,sales_tax)
+    # Calculate grand total
     grand_total = subtotal + sales_tax
 
     # Return total
@@ -242,7 +259,7 @@ def write_sale(decision,unique_order_number,data_string,cart):
         
 
 # Function to push sale information to sqlite database.
-def save_sale(unique_order_number,cart):
+def save_sale(unique_order_number,cart,subtotal,sales_tax,grand_total):
     # Establish a connection to the sqlite database.
     conn=sqlite3.connect("conveniencestore.db")
     
@@ -258,19 +275,23 @@ def save_sale(unique_order_number,cart):
     # For each item in the cart add a row to the sqlite database
     for item in cart:
         # Run product description lookup and price lookup.
-        description = run_description_lookup()
-        price = run_price_lookup()
+        description = run_product_lookup(item)
+        price = run_product_lookup(item)
         
+        # Add a new row to the database in sqlite.
+        c.execute("INSERT INTO sales VALUES("",item,description,price,"","","")")
         
- def record_sale():
-    unique_order_number = create_order_number(order_number)
-    cart = add_items()
-    subtotal = calculate_subtotal (cart)
-    sales_tax = calculate_tax (subtotal)
-    grand_total = calculate_grand_total(subtotal,sales_tax)
-    decision = want_recipt()
-    write_sale(decision,unique_order_number, data_string,cart)
-    save_sale(unique_order_number, cart)
+        # Commit those changes.
+        conn.commit()
+        
+    # Add a new row with subtotal, tax, and grand total.
+    c.execute("INSERT INTO sales VALUES("","","","",subtotal,sales_tax,grand_total)")
+    
+    # Commit these changes.
+    conn.commit()
+    
+    # Close the database when finished.
+    conn.close()
    
 
 # ONLINE ORDER FUNCTIONS:
