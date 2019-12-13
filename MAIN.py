@@ -24,17 +24,20 @@ def main():
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
             # Run the Record Sale functions
-            #Recordsale()
-            create_order_number(upc)
-            calculate_total (price)
-            want_receipt ()
+            record_sale()
+           
         elif selection == "2":
          # Run the Retrieve Online Order functions
+            retrieve_online_orders()
+            
         elif selection == "3":
         # Run the Update Catalog functions
+            update_catalog()
+        
         elif selection == "4":
           #Run the Terminate Program functions
             terminate_program()
+            
         elif selection != "1" or selection != "2" or selection != "3" or selection != "4":
             print ("ERROR: Please enter valid selection number")
             selection = input("Please make a selection (1,2,3,or 4): " )
@@ -292,13 +295,18 @@ def save_sale(unique_order_number,cart,subtotal,sales_tax,grand_total):
     
     # Close the database when finished.
     conn.close()
+def record_sale():
+    unique_order_number = create_order_number(order_number)
+    cart = add_items()
+    subtotal = calculate_subtotal (cart)
+    sales_tax = calculate_tax (subtotal)
+    grand_total = calculate_grand_total(subtotal,sales_tax)
+    decision = want_recipt()
+    write_sale(decision,unique_order_number, data_string,cart)
+    save_sale(unique_order_number, cart)
    
 
 # ONLINE ORDER FUNCTIONS:
-
-def retrieve_online_orders (online_order):
-    unpickled_order = unpickle_online_orders(online_order)
-    create_online_order(online_order)
         
 def unpickle_online_orders(filename):
     online_order_file = open (filename, 'rb')
@@ -309,6 +317,10 @@ def unpickle_online_orders(filename):
 
 def create_online_order(new_online_order):
     record_sale(new_online_order)
+    
+def retrieve_online_orders ():
+    new_online_order = unpickle_online_orders(filename)
+    create_online_order(new_online_order)
     
 # UPDATE CATALOG FUNCTIONS:
 # Function to gather information for new item entry.
@@ -322,7 +334,7 @@ def new_item():
     return upc,description,price
     
     
-def update_catalog(upc,description,price):
+def write_catalog(upc,description,price):
     # Establish a connection to the database
     conn = sqlite3.connect("conveniencestore.db")
     
@@ -337,8 +349,14 @@ def update_catalog(upc,description,price):
     
     # Close the connection when done.
     conn.close()
+  
+def update_catalog():
+    upc = new_item()
+    description = new_item()
+    price = new_item()
+    write_catalog(upc, description, price)
     
-
+    
 # TERMINATE PROGRAM FUNCTION:
 def terminate_program():
     exit()
