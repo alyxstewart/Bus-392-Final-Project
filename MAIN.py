@@ -49,9 +49,6 @@ def CSV_to_list():
     for item in items:
         item.append(ran_price=get_price())
 
-    for item in items:
-        print(item)
-
         
 # Function to create our sqlite database and add tables
 # for our catalog and sales records.
