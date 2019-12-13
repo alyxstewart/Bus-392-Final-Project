@@ -224,6 +224,20 @@ def save_sale(unique_order_number,cart):
     
 # ONLINE ORDER FUNCTIONS:
 
+def retrieve_online_orders (online_order):
+    unpickle_online_orders(online_order)
+    create_online_order(online_order)
+        
+def unpickle_online_orders(filename):
+    online_order_file = open (filename, 'rb')
+    new_online_order = pickle.load(online_order_file)
+    online_order_file.close
+    
+    return new_online_order
+
+def create_online_order(new_online_order):
+    record_sale(new_online_order)
+    
 # UPDATE CATALOG FUNCTIONS:
 # Function to gather information for new item entry.
 def new_item():
