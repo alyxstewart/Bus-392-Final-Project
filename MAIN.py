@@ -47,7 +47,7 @@ def CSV_to_list():
         items.append(line.rstrip('\n').split(','))
 
     for item in items:
-        item.append(get_price())
+        item.append(ran_price=get_price())
 
     for item in items:
         print(item)
@@ -59,6 +59,9 @@ def get_price():
 
 
 #RECORD SALE FUNCTIONS: 
+def record_sale():
+    order_number
+
 # Function that runs
 def create_order_number():
     
@@ -74,9 +77,12 @@ def create_order_number():
     # Return unique order number.
     return unique_order_number
 
+
 # Run product description lookup.
 
+
 # Run product price lookup.
+
 
 # Function to calculate subtotal.
 def calculate_subtotal(price):
