@@ -104,7 +104,9 @@ def add_items():
 # Run product description lookup.
 
 
+
 # Run product price lookup.
+
 
 
 # Function to calculate subtotal.
@@ -122,6 +124,7 @@ def calculate_subtotal(cart):
     # Return subtotal
     return subtotal
 
+
 # Function to calculate tax.
 def calculate_tax(subtotal):
     # Calculate sales tax
@@ -130,6 +133,7 @@ def calculate_tax(subtotal):
     # Return sales tax
     return sales_tax
 
+
 # Function to calculate grand total.
     # Calculate grand total
     grand_total = subtotal + sales_tax
@@ -137,11 +141,25 @@ def calculate_tax(subtotal):
     # Return total
     return grand_total
 
-#Function Prompt user to see if they want a printed receipt
-def want_receipt (unique_order_number, data):
-    yes_or_no = input ("Would you like to print a receipt? (Y or N) : ")
-    if "Y" or "y":
-        unique_order_number = receipt_file_name 
+
+# Date line function to create lines of data for receipt/sqlite.
+def data_line(item,subtotal, sales_tax, grand_total):
+    
+    
+    
+#Function to prompt user to see if they want a printed receipt
+def want_receipt ():
+    # Prompt user if they want a receipt
+    decision = input ("Would you like to print a receipt? (Y or N) : ")
+    decision.upper()
+    
+    # Return decision
+    return decision
+
+# Function to write sale to file.
+def write_sale(decision,unique_order_number,
+    if decision == "Y":
+        receipt unique_order_number
         receipt = open (receipt_file_name.txt, "w")
         receipt.write(data)
         # Change data to whatever we name the UPC file return info
@@ -152,20 +170,6 @@ def want_receipt (unique_order_number, data):
         
 # ONLINE ORDER FUNCTIONS:
 
-def retrieve_online_orders (online_order):
-    unpickle_online_orders(online_order)
-    create_online_order(online_order)
-        
-def unpickle_online_orders(filename):
-    online_order_file = open (filename, 'rb')
-    new_online_order = pickle.load(online_order_file)
-    online_order_file.close
-    
-    return new_online_order
-
-def create_online_order(new_online_order):
-    record_sale(new_online_order)
-    
 # UPDATE CATALOG FUNCTIONS:
         
 # TERMINATE PROGRAM FUNCTION:
