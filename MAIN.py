@@ -237,6 +237,12 @@ def want_receipt ():
     decision = input ("Would you like to print a receipt? (Y or N) : ")
     decision.upper()
     
+    # Handle exceptions
+    if decision != 'Y' and decision != 'N':
+        print(Error: Not a valid response.)
+        decision = input ("Would you like to print a receipt? (Y or N) : ")
+        decision.upper()
+    
     # Return decision
     return decision
 
@@ -312,7 +318,14 @@ def record_sale():
 # ONLINE ORDER FUNCTIONS:
         
 def unpickle_online_orders(filename):
-    online_order_file = open (filename, 'rb')
+    try:
+        online_order_file = open (filename, 'rb')
+    
+    # Print exception message if file not found.
+    except FileNotFoundError:
+        print("Error: File could not be found.")
+    
+    # Unpickle the file and make sure to close when finished.
     new_online_order = pickle.load(online_order_file)
     online_order_file.close
     
