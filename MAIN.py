@@ -21,10 +21,7 @@ def main():
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
             # Run the Record Sale functions
-            #Recordsale()
-            create_order_number(upc)
-            calculate_total (price)
-            want_receipt ()
+            recordsale() 
         elif selection == "2":
          # Run the Retrieve Online Order functions
         elif selection == "3":
@@ -109,8 +106,8 @@ def create_catalog(items):
 
 
 #RECORD SALE FUNCTIONS: 
-def record_sale():
 
+  
 
 # Function that runs
 def create_order_number():
@@ -190,7 +187,8 @@ def calculate_tax(subtotal):
 
 
 # Function to calculate grand total.
-    # Calculate grand total
+    # Calculate grand totalto
+def caculate_grandtotal(subtotal,sales_tax)
     grand_total = subtotal + sales_tax
 
     # Return total
@@ -262,6 +260,17 @@ def save_sale(unique_order_number,cart):
         # Run product description lookup and price lookup.
         description = run_description_lookup()
         price = run_price_lookup()
+        
+        
+ def record_sale():
+    unique_order_number = create_order_number(order_number)
+    cart = add_items()
+    subtotal = calculate_subtotal (cart)
+    sales_tax = calculate_tax (subtotal)
+    grand_total = calculate_grand_total(subtotal,sales_tax)
+    decision = want_recipt()
+    write_sale(decision,unique_order_number, data_string,cart)
+    save_sale(unique_order_number, cart)
    
 
 # ONLINE ORDER FUNCTIONS:
