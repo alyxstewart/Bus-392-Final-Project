@@ -22,9 +22,6 @@ def main():
         if selection == "1":
             # Run the Record Sale functions
             #Recordsale()
-            create_order_number(upc)
-            calculate_total (price)
-            want_receipt ()
         elif selection == "2":
          # Run the Retrieve Online Order functions
         elif selection == "3":
