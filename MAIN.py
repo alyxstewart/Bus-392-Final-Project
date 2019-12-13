@@ -152,12 +152,8 @@ def add_items():
         return cart
     
 
-# Run product description lookup.
-def run_description_lookup(item):
-
-
 # Run product price lookup.
-def run_price_lookup(item):
+def run_product_lookup(item):
     # Establish a connection to the database.
     conn = sqlite3.connect("conveniencestore.db")
     
@@ -165,7 +161,9 @@ def run_price_lookup(item):
     c = conn.cursor()
     
     # Lookup the item UPC in sqlite and return the price.
-
+    t = (
+    
+    
 # Function to calculate subtotal.
 def calculate_subtotal(cart):
     # Create subtotal variable
