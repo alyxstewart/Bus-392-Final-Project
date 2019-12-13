@@ -27,7 +27,6 @@ def main():
          # Run the Retrieve Online Order functions
             retrieve_online_orders (online_order)
         
-        
         elif selection == "3":
             # Run the Update Catalog functions
             new_item()
