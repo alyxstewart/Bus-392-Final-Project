@@ -53,6 +53,31 @@ def CSV_to_list():
         print(item)
 
         
+# Function to create our sqlite database and add tables
+# for our catalog and sales records.
+def create_database():
+    # Establish a connection to the new database.
+    conn = sqlite3.connect("conveniencestore.db")
+    
+    # Create a cursor object.
+    c = conn.cursor()
+    
+    # Create a table for our catalog.
+    c.execute('''CREATE TABLE catalog
+                (UPC text, Description text, Price real)''')
+    
+    # Create a table to record each sale into the database.
+    c.execute('''CREATE TABLE sales
+                (Order_Number text, UPC text, Description text, Price real, \
+                Subtotal real, Sales_Tax real, Total real)''')
+    
+    # Commit the changes.
+    conn.commit()
+    
+    # Close the connection.
+    conn.close()
+
+        
 # Function to generate and return random prices for items
 def get_price():
     ran_price = random.uniform(.99,4.99)
@@ -181,7 +206,7 @@ def write_sale(decision,unique_order_number,data_string,cart):
             data_string = data_line(item)
             
             # Write the data string to the receipt text file.
-            receipt.writeline(data_string\n)
+            receipt.writeline(data_string+"\n")
         
         # Change data to whatever we name the UPC file return info
         receipt.close()
@@ -191,14 +216,32 @@ def write_sale(decision,unique_order_number,data_string,cart):
         
 
 # Function to push sale information to sqlite database.
-def save_sale(unique_order_number,data_string,cart):
-    # For each item in the cart
-    
+def save_sale(unique_order_number,cart):
+    # 
+    # For each item in the cart add a row to the sqlite database
+    for item in cart:
+        #
     
 # ONLINE ORDER FUNCTIONS:
 
 # UPDATE CATALOG FUNCTIONS:
-        
+# Function to gather information for new item entry.
+def new_item():
+    # Prompt user to enter in UPC, description, and price.
+    
+    
+    
+def update_catalog():
+    
+    # Establish a connection.
+    conn = sqlite3.connect('conveniencestore.db')
+    
+    # Create a cursor object.
+    c = conn.cursor()
+    
+    
+    
+
 # TERMINATE PROGRAM FUNCTION:
 def terminate_program():
     exit()
