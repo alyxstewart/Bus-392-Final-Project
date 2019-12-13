@@ -20,25 +20,21 @@ def main():
     while another == "Y" or "y":
         selection = input("Please make a selection (1,2,3,or 4): " )
         if selection == "1":
-            #Run the record sale function
-            record_sale()
-          
+            # Run the Record Sale functions
+            #Recordsale()
+            create_order_number(upc)
+            calculate_total (price)
+            want_receipt ()
         elif selection == "2":
          # Run the Retrieve Online Order functions
-            retrieve_online_orders (online_order)
-        
         elif selection == "3":
-            # Run the Update Catalog functions
-            new_item()
-            update_catalog()
-        
+        # Run the Update Catalog functions
         elif selection == "4":
           #Run the Terminate Program functions
             terminate_program()
-            
         elif selection != "1" or selection != "2" or selection != "3" or selection != "4":
             print ("ERROR: Please enter valid selection number")
-            another
+            selection = input("Please make a selection (1,2,3,or 4): " )
 
             
 #ENTIRE PROGRAM FUNCTIONS:   
@@ -56,8 +52,6 @@ def CSV_to_list():
     return items
         
 
-    
-    
 # Function to create our sqlite database and add tables
 # for our catalog and sales records.
 def create_database():
@@ -87,6 +81,31 @@ def create_database():
 def get_price():
     ran_price = random.uniform(.99,4.99)
     return ran_price
+
+
+# Function to create the initial catalog.
+def create_catalog(items):
+    # Establish a connection to the database.
+    conn=sqlite3.connect("conveniencestore.db")
+    
+    # Create a cursor object.
+    c = conn.cursor()
+    
+    # Create a loop which will go through each index
+    # of the items list and add a new row of data to 
+    # the database catalog.
+    for index in items:
+        # Run get_price to produce a random price for this good.
+        random_price = get_price()
+        
+        # Add this row to the catalog.
+        c.execute("INSERT INTO catalog VALUES(items[index][0],items[index][1],random_price)")
+        
+        # Commit the change after each iteration.
+        conn.commit()
+    
+    # Close the connection when finished iterating.
+    conn.close()
 
 
 #RECORD SALE FUNCTIONS: 
@@ -222,11 +241,24 @@ def write_sale(decision,unique_order_number,data_string,cart):
 
 # Function to push sale information to sqlite database.
 def save_sale(unique_order_number,cart):
-    # 
+    # Establish a connection to the sqlite database.
+    conn.connect("conveniencestore.db")
+    
+    # Create a cursor object.
+    c = conn.cursor()
+    
+    # Add the order number to the appropriate collumn
+    c.execute("INSERT INTO sales VALUES(unique_order_number,"","","","","","")")
+    
+    # Commit the change before moving on.
+    conn.commit()
+              
     # For each item in the cart add a row to the sqlite database
     for item in cart:
-        #
-    
+        # Run product description lookup and price lookup.
+        
+   
+
 # ONLINE ORDER FUNCTIONS:
 
 def retrieve_online_orders (online_order):
