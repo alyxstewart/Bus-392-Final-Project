@@ -5,7 +5,6 @@ import csv
 import sys
 import datetime
 import random
-import pickle
 
 
 def main():
@@ -61,7 +60,7 @@ def get_price():
 
 #RECORD SALE FUNCTIONS: 
 def record_sale():
-    order_number
+
 
 # Function that runs
 def create_order_number():
@@ -78,6 +77,29 @@ def create_order_number():
     # Return unique order number.
     return unique_order_number
 
+# Add items function will prompt clerk to enter items until they
+# are finished adding entire cart.
+def add_items():
+    # Accumulator variable for while loop.
+    keep_going = 'y'
+    
+    # Cart list
+    cart = []
+    
+    # Loop that adds items until the user is done.
+    while keep_going == "y":
+        # Prompt user to enter in a UPC
+        item = input("Enter UPC here: ")
+        
+        # Add item to cart.
+        cart.append(item)
+        
+        # Prompt user to keep going.
+        keep_going = input("Would you like to keep going? (Enter y if yes)")
+        
+        # Return cart
+        return cart
+    
 
 # Run product description lookup.
 
@@ -86,9 +108,16 @@ def create_order_number():
 
 
 # Function to calculate subtotal.
-def calculate_subtotal(price):
-    # Add up all the item prices
-    subtotal += price
+def calculate_subtotal(cart):
+    # Create subtotal variable
+    subtotal = 0
+    
+    # For loop to lookup all item prices in cart
+    for items in cart:
+        price = run_price_lookup()
+        
+        # Add up all the item prices
+        subtotal += price
     
     # Return subtotal
     return subtotal
@@ -102,10 +131,9 @@ def calculate_tax(subtotal):
     return sales_tax
 
 # Function to calculate grand total.
-def calculate_grand_total(subtotal, sales_tax):
     # Calculate grand total
     grand_total = subtotal + sales_tax
-    
+
     # Return total
     return grand_total
 
@@ -123,22 +151,6 @@ def want_receipt (unique_order_number, data):
         print ("No Receipt")
         
 # ONLINE ORDER FUNCTIONS:
-
-def retrieve_online_orders (online_order):
-    unpickle_online_orders(online_order)
-    create_online_order(online_order)
-        
-def unpickle_online_orders(filename):
-    online_order_file = open (filename, 'rb')
-    new_online_order = pickle.load(online_order_file)
-    online_order_file.close
-    
-    return new_online_order
-
-def create_online_order(new_online_order):
-    record_sale(new_online_order)
-    
-    
 
 # UPDATE CATALOG FUNCTIONS:
         
